@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Post con Axios y JSONPlaceholder</title>
+</head>
+
+<body>
+    <h1>Crear Nuevo Post</h1>
+
+    <form id="post-form">
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" required><br><br>
+
+        <label for="body">Cuerpo:</label><br>
+        <textarea id="body" name="body" rows="4" cols="50" required></textarea><br><br>
+
+        <button type="submit">Crear Post</button>
+    </form>
+
+    <!-- Insertamos el CDN de Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        // Obtener el formulario
+        const form = document.getElementById('post-form');
+
+        // Escuchar el evento submit del formulario
+        form.addEventListener('submit', function (event) {
+            event.preventDefault(); // Evitar que se recargue la página al enviar el formulario
+
+            // Obtener los valores del formulario
+            const title = document.getElementById('title').value;
+            const body = document.getElementById('body').value;
+
+            // Crear el objeto con los datos del nuevo post
+            const postData = {
+                title: title,
+                body: body,
+                userId: 1 // El ID del usuario, en este caso usamos 1 como ejemplo
+            };
+
+            // Enviar la solicitud POST para crear el nuevo post
+            axios.post('https://jsonplaceholder.typicode.com/posts', postData)
+                .then(function (response) {
+                    // Manejar la respuesta
+                    console.log(response.data)
+                    alert('Nuevo post creado:');
+                })
+                .catch(function (error) {
+                    // Manejar errores
+                    console.error('Error al crear el nuevo post:', error);
+                });
+        });
+    </script>
+</body>
+
+</html>

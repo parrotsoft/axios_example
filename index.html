@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Posts con Axios y JSONPlaceholder</title>
+</head>
+
+<body>
+    <h1>Lista de Posts</h1>
+
+    <ul id="post-list">
+        <!-- Aquí se mostrarán los posts -->
+    </ul>
+
+    <!-- Insertamos el CDN de Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        // Obtener la lista de posts
+        axios.get('https://jsonplaceholder.typicode.com/posts')
+            .then(function (response) {
+                // Manejar la respuesta
+                const posts = response.data;
+                const postListElement = document.getElementById('post-list');
+
+                // Recorrer los posts y agregarlos a la lista en el HTML
+                posts.forEach(function (post) {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = post.title;
+                    postListElement.appendChild(listItem);
+                });
+            })
+            .catch(function (error) {
+                // Manejar errores
+                console.error('Error al obtener la lista de posts:', error);
+            });
+    </script>
+</body>
+
+</html>
