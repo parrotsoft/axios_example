@@ -100,13 +100,18 @@
             const clave = document.getElementById('clave').value;
 
             const dataLogin = {
-                correo: correo,
-                clave: clave
+                email: correo,
+                password: clave
             }
 
-            axios.post('', dataLogin)
+            axios.post('http://localhost:8000/auth/login', dataLogin)
                 .then(function (response) {
-                    console.log(response.data)
+                    if (response.data.code == 'Error') {
+                        alert('Credenciales incorrectas')
+                    } else {
+                        localStorage.setItem('token', response.data.result.access_token);
+                        window.location.href = 'dashboard.html';
+                    }
                 }).catch(function (error) {
                     console.log('Error al intentar entrar al sistema ', error)
                 });
